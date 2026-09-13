@@ -1,0 +1,25 @@
+# ChiReSSD patch 2/2 against yl4579/StyleTTS2 @ 5cedc71c333f8d8b8551ca59378bdcc7af4c9529
+#
+# Gives OneCycleLR a 10% warm-up instead of upstream's zero. With only four
+# fine-tuning epochs on a small child-speech corpus, starting at max_lr
+# destabilises the pretrained representations before they re-converge.
+#
+# NOTE: this changes training dynamics, not just ergonomics. Reverting it
+# changes the resulting model.
+#
+# Original code (c) 2023 Aaron (Yinghao) Li, MIT License.
+# Modification (c) 2026 the ChiReSSD authors, MIT License.
+
+diff --git a/train_finetune.py b/train_finetune.py
+index 3c65074..dda6808 100644
+--- a/train_finetune.py
++++ b/train_finetune.py
+@@ -177,7 +177,7 @@ def main(config_path):
+     
+     scheduler_params = {
+         "max_lr": optimizer_params.lr,
+-        "pct_start": float(0),
++        "pct_start": float(0.1),  # LR warm-up; upstream uses float(0)
+         "epochs": epochs,
+         "steps_per_epoch": len(train_dataloader),
+     }

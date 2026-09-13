@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install ruff
+      - run: ruff check .
+      - run: ruff format --check .
+
+  import:
+    name: Package imports
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      # Metadata and module structure only: no torch, no model downloads, so
+      # this stays fast. Anything deeper needs a GPU and a corpus.
+      - run: pip install pyyaml
+      - name: Configs and presets load
+        run: |
+          python - <<'PY'
+          import sys; sys.path.insert(0, "src")
+          from chiressd.config import available_presets, available_train_configs, load_preset
+          from chiressd.paths import PACKAGED_EXAMPLE, load_paths
+
+          presets = available_presets()
+          assert "default" in presets, presets
+          p = load_preset("default")
+          assert (p.alpha, p.beta, p.diffusion_steps) == (0.8, 0.5, 10), p
+
+          assert available_train_configs() == ["config_ft_F0_v5"]
+
+          paths = load_paths(PACKAGED_EXAMPLE)
+          for key in ("work_root", "data_root", "upstream", "models.libritts_base",
+                      "datasets.train.audio", "outputs.synth"):
+              assert paths[key].is_absolute(), key
+          print("configs, presets and the example paths file all load")
+          PY

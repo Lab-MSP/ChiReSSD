@@ -1,0 +1,20 @@
+# This repository deliberately ships no large binaries and does not use Git LFS.
+# The trained checkpoint is distributed via the Hugging Face Hub instead.
+#
+# `-filter` is what disables the LFS smudge/clean filters. Do not add `-diff` or
+# `-merge` here: those make every file behave as binary, so `git diff` and code
+# review show "Binary files differ" for ordinary source.
+* -filter
+
+*.py    text diff=python
+*.md    text
+*.yml   text
+*.yaml  text
+*.html  text
+*.txt   text
+*.cff   text
+*.patch text
+*.ipynb text
+
+*.png binary
+*.wav binary

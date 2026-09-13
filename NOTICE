@@ -1,0 +1,52 @@
+ChiReSSD
+Copyright (c) 2026 Karen Rosero, Eunjung Yeo, David R. Mortensen,
+Cortney Van't Slot, Rami R. Hallac, Carlos Busso
+
+This product includes and builds upon third-party work, acknowledged below.
+Nothing in this list is redistributed by this repository unless explicitly
+stated; the code fetches each dependency from its own source at setup time.
+
+--------------------------------------------------------------------------
+StyleTTS2 -- https://github.com/yl4579/StyleTTS2
+Copyright (c) 2023 Aaron (Yinghao) Li
+MIT License
+
+ChiReSSD is a fine-tuning recipe and evaluation suite built on StyleTTS2. The
+upstream source is not vendored here. `chiressd-setup` clones it at the pinned
+commit 5cedc71c333f8d8b8551ca59378bdcc7af4c9529 and applies the patches in
+src/chiressd/_upstream_patches/. Those patch files are derivative works of
+MIT-licensed source and are released under the same MIT terms.
+
+--------------------------------------------------------------------------
+StyleTTS2 LibriTTS checkpoint (2nd stage) -- yl4579
+The base checkpoint that ChiReSSD fine-tunes from. Obtain it from the upstream release.
+
+PL-BERT, JDCNet (pitch), ASRCNN (text aligner) weights
+Obtained via the upstream StyleTTS2 clone. NOT redistributed here.
+
+monotonic_align -- https://github.com/resemble-ai/monotonic_align
+Installed as a dependency.
+
+--------------------------------------------------------------------------
+Models invoked at runtime (downloaded from their own hosts, not redistributed)
+
+microsoft/wavlm-base-plus                     MIT
+facebook/wav2vec2-lv-60-espeak-cv-ft          Apache-2.0
+WhisperX -- https://github.com/m-bain/whisperX BSD-2-Clause
+faster-whisper                                MIT
+Resemblyzer                                   MIT
+
+--------------------------------------------------------------------------
+espeak-ng -- GPLv3
+
+Reached only as a subprocess, through the `phonemizer` package. No espeak-ng
+source or binary is linked into, bundled with, or distributed by this project.
+It must be installed separately as a system package.
+
+--------------------------------------------------------------------------
+Audio in docs/audio/
+
+Nine demonstration clips carried over from the project's public demo page.
+Original disordered-speech samples derive from the STAR corpus
+(Lawson & Cleland, ICPLA 2023). These are the only audio files in this
+repository; no corpus is redistributed here. See DATA.md.

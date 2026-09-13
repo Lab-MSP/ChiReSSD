@@ -1,0 +1,31 @@
+# Conda environment for ChiReSSD.
+#
+#   conda env create -f environment.yml
+#   conda activate chiressd
+#   pip install -e .            # or: pip install -e ".[eval]"
+#
+# Conda supplies only what pip cannot: the Python version and the two system
+# binaries the pipeline shells out to. Everything else is pip's, pinned in
+# pyproject.toml.
+#
+# espeak-ng is GPLv3 and is invoked as a subprocess through `phonemizer`; it is
+# never linked into or distributed with this project. It must be present or
+# grapheme-to-phoneme conversion fails at import time.
+#
+# Montreal Forced Aligner is deliberately absent. It conflicts with much of this
+# stack and is only needed for the optional MFA-based G2P route, not for
+# training, synthesis or evaluation. Install it in a separate throwaway
+# environment if you want it.
+
+name: chiressd
+
+channels:
+  - conda-forge
+
+dependencies:
+  # 3.10 is not arbitrary: it is the version of the environment that trained the
+  # released checkpoint, and pyproject pins requires-python to <3.11.
+  - python=3.10
+  - pip
+  - ffmpeg
+  - espeak-ng

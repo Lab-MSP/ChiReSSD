@@ -1,0 +1,78 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "ChiReSSD"
+abstract: >-
+  Speaker-preserving reconstruction of pediatric disordered speech. Given a
+  target transcript and a short reference recording from a child with a speech
+  sound disorder, ChiReSSD synthesizes the target utterance with canonical
+  pronunciation while preserving the child's speaker identity and prosody.
+type: software
+license: MIT
+repository-code: "https://github.com/Lab-MSP/ChiReSSD"
+url: "https://lab-msp.github.io/ChiReSSD/"
+keywords:
+  - speech disorders
+  - speech reconstruction
+  - speech-language pathology
+  - text-to-speech
+  - child speech
+
+authors:
+  - family-names: "Rosero"
+    given-names: "Karen"
+    orcid: "https://orcid.org/0000-0002-8118-4213"
+    affiliation: "Language Technologies Institute, Carnegie Mellon University"
+  - family-names: "Yeo"
+    given-names: "Eunjung"
+    orcid: "https://orcid.org/0009-0003-4452-4084"
+    affiliation: "Department of Computer Science, University of Texas at Austin"
+  - family-names: "Mortensen"
+    given-names: "David R."
+    orcid: "https://orcid.org/0000-0002-3927-6851"
+    affiliation: "Language Technologies Institute, Carnegie Mellon University"
+  - family-names: "Van't Slot"
+    given-names: "Cortney"
+    affiliation: "Department of Plastic Surgery, UT Southwestern Medical Center"
+    email: "cortney.vantslot@childrens.com"
+  - family-names: "Hallac"
+    given-names: "Rami R."
+    orcid: "https://orcid.org/0000-0001-9025-399X"
+    affiliation: >-
+      Department of Plastic Surgery, UT Southwestern Medical Center and
+      Analytical Imaging and Modeling Center, Children's Health
+  - family-names: "Busso"
+    given-names: "Carlos"
+    orcid: "https://orcid.org/0000-0002-4075-4072"
+    affiliation: "Language Technologies Institute, Carnegie Mellon University"
+
+# The `doi` can be added once the proceedings entry is assigned one.
+preferred-citation:
+  type: conference-paper
+  title: >-
+    Generative Reconstruction of Pediatric Disordered Speech for Automated
+    Clinical Evaluation
+  year: 2026
+  collection-title: >-
+    Proceedings of the IEEE Spoken Language Technology Workshop 2026 (SLT '26)
+  conference:
+    name: "IEEE Spoken Language Technology Workshop 2026 (SLT '26)"
+    city: "Palermo"
+    country: "IT"
+  authors:
+    - family-names: "Rosero"
+      given-names: "Karen"
+      orcid: "https://orcid.org/0000-0002-8118-4213"
+    - family-names: "Yeo"
+      given-names: "Eunjung"
+      orcid: "https://orcid.org/0009-0003-4452-4084"
+    - family-names: "Mortensen"
+      given-names: "David R."
+      orcid: "https://orcid.org/0000-0002-3927-6851"
+    - family-names: "Van't Slot"
+      given-names: "Cortney"
+    - family-names: "Hallac"
+      given-names: "Rami R."
+      orcid: "https://orcid.org/0000-0001-9025-399X"
+    - family-names: "Busso"
+      given-names: "Carlos"
+      orcid: "https://orcid.org/0000-0002-4075-4072"

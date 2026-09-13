@@ -1,0 +1,8 @@
+# Adult dysarthric speech.
+# More diffusion steps than the STAR preset, and fully diffusion-sampled timbre.
+name: torgo
+alpha: 1.0
+beta: 0.5
+diffusion_steps: 15
+embedding_scale: 1.0
+noise: zeros

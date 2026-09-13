@@ -1,0 +1,45 @@
+# ChiReSSD path configuration.
+#
+#   cp configs/paths.example.yaml paths.yaml     # paths.yaml is gitignored
+#
+# Edit the two roots below; everything else is derived from them. Values may
+# reference each other with ${dotted.key}, and ~ is expanded.
+#
+# You can also override any root at run time without editing this file, which
+# is what cluster jobs want:
+#   CHIRESSD_WORK_ROOT  CHIRESSD_DATA_ROOT  CHIRESSD_UPSTREAM  CHIRESSD_CACHE_ROOT
+# and relocate the file itself with CHIRESSD_PATHS.
+
+# --- the two you must set -------------------------------------------------
+
+# Scratch space: the upstream checkout, synthesized audio, style caches.
+# Nothing here is precious; it can be deleted and regenerated.
+work_root: ~/chiressd-work
+
+# Your speech data. Only needed for fine-tuning — inference with the released
+# checkpoint needs nothing here. See DATA.md.
+data_root: /path/to/your/data
+
+# --- derived; usually leave alone ----------------------------------------
+
+upstream: ${work_root}/third_party/StyleTTS2
+cache_root: ${work_root}/cache
+
+models:
+  # The StyleTTS2 LibriTTS 2nd-stage checkpoint that fine-tuning starts from.
+  # Download it from the upstream release; it is not redistributed here.
+  # Not needed for inference.
+  libritts_base: ${work_root}/models/StyleTTS2-LibriTTS/epochs_2nd_00020.pth
+
+datasets:
+  # Your fine-tuning corpus. Build the two lists with `chiressd-prepare`.
+  train:
+    audio: ${data_root}/audio
+    train_list: ${data_root}/train_list.txt
+    val_list: ${data_root}/val_list.txt
+
+outputs:
+  models: ${work_root}/models
+  synth: ${work_root}/synth
+  styles: ${work_root}/styles
+  metrics: ${work_root}/metrics

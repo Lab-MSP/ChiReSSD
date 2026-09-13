@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChiReSSD — Generative Reconstruction of Pediatric Disordered Speech</title>
+
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 0;
+  background: #f7f7f7;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+  background: white;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.authors {
+  text-align: center;
+  margin: 18px auto 6px;
+  max-width: 900px;
+  line-height: 1.7;
+}
+
+.authors .name {
+  white-space: nowrap;
+  margin: 0 6px;
+}
+
+.affiliations {
+  text-align: center;
+  font-size: 0.9em;
+  color: #555;
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.links {
+  text-align: center;
+  margin: 26px 0 10px;
+}
+
+.links a {
+  display: inline-block;
+  margin: 4px 6px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: #2c3e50;
+  color: white;
+  text-decoration: none;
+  font-size: 0.95em;
+}
+
+.links a:hover {
+  background: #1a252f;
+}
+
+.abstract {
+  margin: 30px auto;
+  line-height: 1.6;
+  text-align: justify;
+  max-width: 900px;
+}
+
+.figure {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.audio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.audio-item {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.transcript {
+  display: block;
+  margin-top: 6px;
+  font-style: italic;
+  color: #555;
+}
+
+audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.footnote {
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #666;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+  .audio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .audio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Generative Reconstruction of Pediatric Disordered Speech for Automated Clinical Evaluation</h1>
+
+<div class="authors">
+<span class="name">Karen Rosero<sup>1</sup></span>
+<span class="name">Eunjung Yeo<sup>2</sup></span>
+<span class="name">David R. Mortensen<sup>1</sup></span>
+<span class="name">Cortney Van&rsquo;t Slot<sup>3</sup></span>
+<span class="name">Rami R. Hallac<sup>3,4</sup></span>
+<span class="name">Carlos Busso<sup>1</sup></span>
+</div>
+
+<div class="affiliations">
+<sup>1</sup>Language Technologies Institute, Carnegie Mellon University, Pittsburgh, PA, USA &middot;
+<sup>2</sup>Department of Computer Science, University of Texas at Austin, Austin, TX, USA<br>
+<sup>3</sup>Department of Plastic Surgery, UT Southwestern Medical Center, Dallas, TX, USA &middot;
+<sup>4</sup>Analytical Imaging and Modeling Center, Children&rsquo;s Health, Dallas, TX, USA
+</div>
+
+<div class="links">
+<a href="https://github.com/Lab-MSP/ChiReSSD">Code</a>
+<a href="https://huggingface.co/Lab-MSP/ChiReSSD">Model</a>
+</div>
+
+<div class="abstract">
+<h2>Abstract</h2>
+<p>
+This paper presents ChiReSSD, a speech reconstruction framework for children with speech sound
+disorders (SSDs). ChiReSSD uses a target transcript, along with a short reference recording from a
+child with SSD, to synthesize a corrected version of the target utterance. The system improves
+intelligibility by suppressing mispronunciations while preserving the child&rsquo;s speaker identity,
+speaking style, and prosodic characteristics. Standard style-preserving text-to-speech (TTS)
+reinforces existing mispronunciations rather than correcting them, since pathological articulation
+is encoded as part of the speaker style. ChiReSSD addresses this limitation by routing
+pronunciation through the text pathway, while speaker identity and prosody are controlled by a
+style pathway, without requiring paired typical&ndash;atypical data or a dedicated model per child.
+We evaluate ChiReSSD on the STAR dataset, achieving a 48% relative reduction in character error
+rate and a 19% gain in speaker similarity over style-preserving baselines. Consonant-level
+annotations from a certified speech-language therapist on 21 paired samples yield a Pearson
+correlation of &rho; = 0.63 with the automatic estimates, indicating feasibility for assisting
+clinical metric computation and motivating larger-scale annotation studies. While specifically
+designed for children&rsquo;s speech, the results in the TORGO dataset further indicate that
+ChiReSSD can generalize to adult dysarthric speech across severity levels.
+</p>
+</div>
+
+<div class="figure">
+<h2>Method Overview</h2>
+<img src="flowchart.png" alt="ChiReSSD training pipeline: a style module extracts speaker identity and prosody from a reference SSD utterance, while a text module encodes the target phonemes; both condition the style diffusion denoiser and the decoder." style="width:50%;">
+</div>
+
+<h2>Audio Samples</h2>
+
+<div class="audio-grid">
+
+<!-- Butterfly -->
+<div class="audio-item">
+<b>Original SSD</b>
+<span class="transcript">Target word: &ldquo;Butterfly&rdquo;</span>
+<audio controls src="audio/03SSD1F_butterfly_03SSD1F_butterfly.wav"></audio>
+</div>
+
+<div class="audio-item">
+<b>One-shot Reconstruction</b>
+<span class="transcript">Target word: &ldquo;Butterfly&rdquo;</span>
+<audio controls src="audio/B_03SSD1F_butterfly_03SSD1F_butterfly.wav"></audio>
+</div>
+
+<div class="audio-item">
+<b>ChiReSSD Reconstruction</b>
+<span class="transcript">Target word: &ldquo;Butterfly&rdquo;</span>
+<audio controls src="audio/NCC_03SSD1F_butterfly_03SSD1F_butterfly.wav"></audio>
+</div>
+
+<!-- Strawberries -->
+<div class="audio-item">
+<b>Original SSD</b>
+<span class="transcript">Target word: &ldquo;Strawberries&rdquo;</span>
+<audio controls src="audio/04SSD2M_strawberries_04SSD2M_strawberries.wav"></audio>
+</div>
+
+<div class="audio-item">
+<b>One-shot Reconstruction</b>
+<span class="transcript">Target word: &ldquo;Strawberries&rdquo;</span>
+<audio controls src="audio/B_04SSD2M_strawberries_04SSD2M_strawberries.wav"></audio>
+</div>
+
+<div class="audio-item">
+<b>ChiReSSD Reconstruction</b>
+<span class="transcript">Target word: &ldquo;Strawberries&rdquo;</span>
+<audio controls src="audio/NCC_04SSD2M_strawberries_04SSD2M_strawberries.wav"></audio>
+</div>
+
+<!-- Toothbrush -->
+<div class="audio-item">
+<b>Original SSD</b>
+<span class="transcript">Target word: &ldquo;Toothbrush&rdquo;</span>
+<audio controls src="audio/04SSD2M_toothbrush_04SSD2M_toothbrush.wav"></audio>
+</div>
+
+<div class="audio-item">
+<b>One-shot Reconstruction</b>
+<span class="transcript">Target word: &ldquo;Toothbrush&rdquo;</span>
+<audio controls src="audio/B_04SSD2M_toothbrush_04SSD2M_toothbrush.wav"></audio>
+</div>
+
+<div class="audio-item">
+<b>ChiReSSD Reconstruction</b>
+<span class="transcript">Target word: &ldquo;Toothbrush&rdquo;</span>
+<audio controls src="audio/NCC_04SSD2M_toothbrush_04SSD2M_toothbrush.wav"></audio>
+</div>
+
+</div>
+
+<p class="footnote">
+Original SSD samples were obtained from: J. Lawson and J. Cleland,
+&ldquo;STAR: Speech Therapy Animation and Imaging Resource,&rdquo;
+Proceedings of the International Clinical Phonetics and Linguistics Association, 2023.
+</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.8.1
+    hooks:
+      # Notebook outputs held embedded child-speech audio and ASR transcripts of
+      # it. Stripping them is a privacy control, so it runs before every commit
+      # rather than being left to the author to remember.
+      - id: nbstripout
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.6
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+

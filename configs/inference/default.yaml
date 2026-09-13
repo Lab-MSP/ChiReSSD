@@ -1,0 +1,20 @@
+# The released ChiReSSD operating point. Start here.
+#
+# alpha weights the acoustic/timbre style, beta the prosodic style; in both,
+# 1.0 is fully diffusion-sampled and 0.0 fully reference-driven.
+#
+# alpha is high on purpose: a low alpha leans on the reference acoustics, which
+# is exactly where the disordered articulation lives, so the model reproduces
+# the mispronunciation it is meant to correct.
+name: default
+alpha: 0.8
+beta: 0.5
+diffusion_steps: 10
+embedding_scale: 1.0
+# Initial latent for style diffusion: zeros rather than upstream's Gaussian
+# draw. This differs from upstream StyleTTS2.
+#
+# It does NOT make synthesis deterministic. ADPM2 is an ancestral sampler and
+# adds fresh noise at every step, so repeated calls differ in waveform and even
+# in duration. Pass seed= to chiressd-synth for reproducible output.
+noise: zeros

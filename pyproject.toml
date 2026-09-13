@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chiressd"
+version = "0.1.0"
+description = "Speaker-preserving reconstruction of pediatric disordered speech, built on StyleTTS2"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10,<3.11"
+keywords = ["speech", "text-to-speech", "styletts2", "disordered-speech", "child-speech"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# Authors of the paper, in camera-ready order.
+authors = [
+    { name = "Karen Rosero" },
+    { name = "Eunjung Yeo" },
+    { name = "David R. Mortensen" },
+    { name = "Cortney Van't Slot" },
+    { name = "Rami R. Hallac" },
+    { name = "Carlos Busso" },
+]
+
+# Pinned from the environment that trained the released checkpoint
+# (requirements/base.lock.txt), plus click/tensorboard/phonemizer, which the
+# upstream StyleTTS2 requirements.txt omits despite importing them.
+dependencies = [
+    "torch==2.7.1",
+    "torchaudio==2.7.1",
+    "transformers==4.52.4",
+    "accelerate==1.8.1",
+    "huggingface-hub==0.33.0",
+    "phonemizer==3.3.0",
+    "librosa==0.11.0",
+    "soundfile==0.13.1",
+    "pydub==0.25.1",
+    "einops==0.8.1",
+    "einops-exts==0.0.4",
+    "munch==4.0.0",
+    "nltk==3.9.1",
+    "numpy==2.2.6",
+    "scipy==1.15.3",
+    "pandas==2.3.0",
+    "PyYAML==6.0.2",
+    "matplotlib==3.10.3",
+    "regex==2024.11.6",
+    "tqdm==4.67.1",
+    "click==8.2.1",
+    "tensorboard==2.19.0",
+    "monotonic_align @ git+https://github.com/resemble-ai/monotonic_align.git@c6e5e6cb19882164027eb6e35118e841eed9298e",
+]
+
+[project.optional-dependencies]
+# Speaker similarity needs Resemblyzer; nothing else in the package does, so it
+# is optional. It is deliberately unpinned: it appears in none of the surviving
+# environment freezes from this project, so the version behind the reported
+# numbers is unrecoverable, and pinning a guess would assert a provenance we
+# cannot support. Tested against 0.1.4.
+eval = ["resemblyzer"]
+dev = ["nbstripout", "ruff"]
+
+[project.urls]
+Homepage = "https://github.com/Lab-MSP/ChiReSSD"
+Demo = "https://lab-msp.github.io/ChiReSSD/"
+Model = "https://huggingface.co/Lab-MSP/ChiReSSD"
+
+[project.scripts]
+chiressd-setup = "chiressd.cli.setup:main"
+chiressd-prepare = "chiressd.cli.prepare:main"
+chiressd-train = "chiressd.cli.train:main"
+chiressd-style = "chiressd.cli.style:main"
+chiressd-synth = "chiressd.cli.synth:main"
+chiressd-eval = "chiressd.cli.evaluate:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+chiressd = ["_upstream_patches/*.patch", "py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
