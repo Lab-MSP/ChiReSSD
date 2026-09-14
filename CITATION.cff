@@ -1,11 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the paper below."
 title: "ChiReSSD"
-abstract: >-
-  Speaker-preserving reconstruction of pediatric disordered speech. Given a
-  target transcript and a short reference recording from a child with a speech
-  sound disorder, ChiReSSD synthesizes the target utterance with canonical
-  pronunciation while preserving the child's speaker identity and prosody.
 type: software
 license: MIT
 repository-code: "https://github.com/Lab-MSP/ChiReSSD"
@@ -45,7 +40,6 @@ authors:
     orcid: "https://orcid.org/0000-0002-4075-4072"
     affiliation: "Language Technologies Institute, Carnegie Mellon University"
 
-# The `doi` can be added once the proceedings entry is assigned one.
 preferred-citation:
   type: conference-paper
   title: >-
